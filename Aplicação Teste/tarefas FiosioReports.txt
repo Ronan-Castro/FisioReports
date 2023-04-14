@@ -1,0 +1,17 @@
+conectar com o banco de dados - CHECK
+Criar a tabela de pacientes _ WORKBENCH - CHECK
+Criar a tabela de reports _ WORKBENCH - CHECK
+Criar e Alterar Pacientes _ C# - CHECK
+Listar e Remover Pacientes_ C# - CHECK
+
+Criar Tela de gerar Relatório- CHECK
+Criar Tela para Listar os Relatórios - CHECK
+Criar Tela para Mostrar o Relatório escrito - CHECK
+
+
+SEXTA
+Criar e Alterar Relatórios _ C# - CHECK
+Listar e Remover Relatórios _ C# - CHECK
+
+
+Correções de envio nulo_C#
