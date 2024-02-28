@@ -1,0 +1,43 @@
+# Arquivos de compilação e arquivos gerados automaticamente
+bin/
+obj/
+
+# Arquivos de dependências (NuGet)
+*.dll
+*.exe
+*.pdb
+*.cache
+*.suo
+*.user
+*.bak
+*.log
+*.vspscc
+*.vssscc
+._*
+*~.res
+*~.dep
+*.chk
+*.ilk
+*.log
+*.rdl.data
+*.browsesettings
+*.sln.docstates
+
+# Arquivos de projeto específicos do Visual Studio
+*.csproj.user
+*.VC.db
+*.vcxproj*
+*.vcxproj.filters
+
+# Pastas específicas do Visual Studio
+.vs/
+.vscode/
+
+# Cache de ferramentas do Visual Studio
+*.psess
+*.vsp
+*.vspx
+
+# Outros arquivos e pastas
+[Tt]humbs.db
+*.DS_Store
