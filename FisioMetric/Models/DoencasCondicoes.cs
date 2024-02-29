@@ -8,22 +8,22 @@ namespace FisioMetric.Models
 {
     public class DoencasCondicoes
     {
-        public bool Metabolica { get; set; } = true;
-        public bool Cardiaca { get; set; } = true;
-        public bool Respiratorias { get; set; } = true;
-        public bool Vasculares { get; set; } = true;
-        public bool Neurologicas { get; set; } = true;
-        public bool Endocrina { get; set; } = true;
-        public bool Dermatologica { get; set; } = true;
-        public bool GastroIntestinal { get; set; } = true;
-        public bool Visual { get; set; } = true;
-        public bool Covid { get; set; } = true;
-        public bool Diabete { get; set; } = true;
-        public bool Hipertensao { get; set; } = true;
-        public bool Cardiopatia { get; set; } = true;
-        public bool Neoplasias { get; set; } = true;
-        public bool DoencasHereditarias { get; set; } = true;
-        public bool Gestacao { get; set; } = true;
-        public bool Cirurgias { get; set; } = true;
+        public bool Metabolica { get; set; } = false;
+        public bool Cardiaca { get; set; } = false;
+        public bool Respiratorias { get; set; } = false;
+        public bool Vasculares { get; set; } = false;
+        public bool Neurologicas { get; set; } = false;
+        public bool Endocrina { get; set; } = false;
+        public bool Dermatologica { get; set; } = false;
+        public bool GastroIntestinal { get; set; } = false;
+        public bool Visual { get; set; } = false;
+        public bool Covid { get; set; } = false;
+        public bool Diabete { get; set; } = false;
+        public bool Hipertensao { get; set; } = false;
+        public bool Cardiopatia { get; set; } = false;
+        public bool Neoplasias { get; set; } = false;
+        public bool DoencasHereditarias { get; set; } = false;
+        public bool Gestacao { get; set; } = false;
+        public bool Cirurgias { get; set; } = false;
     }
 }

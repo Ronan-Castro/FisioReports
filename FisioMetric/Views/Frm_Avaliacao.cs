@@ -14,7 +14,7 @@ namespace FisioMetric.Views
         {
             InitializeComponent();
 
-            CabecaParaTela();
+            
 
             if (idAvaliacao != 0)
             {
@@ -41,6 +41,11 @@ namespace FisioMetric.Views
             this.Text = "Avaliação de " + avaliacao.Paciente.Nome;
         }
 
+        private void Btn_Cancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
         private void Frm_Relatorio_Load(object sender, EventArgs e)
         {
             Mtxt_dataAtendimento.Text = DateTime.Now.Date.ToString();
@@ -62,17 +67,12 @@ namespace FisioMetric.Views
                 PreencheDoencasRelacionadas();
                 avaliacao.ObservacaoDoenca = Txt_ObsDoenças.Text;
 
-                PreencheHabitosVida();
+                PreencheObjetosCheckList();
 
-                PreencheHabitosVida();
-                PreencheCabeca();
-                PreencheCervical();
-                PreencheColuna();
-                PreencheOmbros();
-                PreencheJoelhos();
-                PreenchePelve();
-                PreenchePes();
-                
+
+                avaliacao.ExameFisico.PadraoMovimento.IsMaleavel = cck_PadMovimento.GetItemChecked(cck_PadMovimento.Items.IndexOf("HiperMobilidade"));
+                avaliacao.ExameFisico.PadraoMovimento.IsRigido = cck_PadMovimento.GetItemChecked(cck_PadMovimento.Items.IndexOf("Rígido"));
+
                 avaliacao.HabitosVida.ObsHabitos = Txt_HabVida.Text;
                 avaliacao.ObjetivoTerapeutico = Txt_ObjTerapeutico.Text;
                 avaliacao.ObjetivoPessoal = Txt_ObjPessoal.Text;
@@ -96,132 +96,98 @@ namespace FisioMetric.Views
 
         }
 
-        private void PreencheHabitosVida()
+        private void PreencheObjetosCheckList()
         {
-            foreach (string itemSelecionado in Cck_AntPessoais.CheckedItems)
-            {
-                switch (itemSelecionado)
-                {
+            PreencheHabitosVida();
+            PreencheExameFisico();
+            PreencheObjetoCabeca();
+            PreencheObjetoCervical();
+            PreencheObjetoColuna();
+            PreencheObjetoOmbros();
+            PreencheObjetoJoelhos();
+            PreencheObjetoPelve();
+            PreencheObjetoPes();
+        }
 
-                    case "Tabagismo":
-                        avaliacao.HabitosVida.Tabagismo = true;
-                        break;
-                    case "Etilismo":
-                        avaliacao.HabitosVida.Etilismo = true;
-                        break;
-                    case "Ingere Bastante Água":
-                        avaliacao.HabitosVida.IngereAgua = true;
-                        break;
-                    case "Toma Medicamento":
-                        avaliacao.HabitosVida.Medicacao = true;
-                        break;
-                    case "Intestino Funciona Bem":
-                        avaliacao.HabitosVida.Intestino = true;
-                        break;
-                    case "Pratica Atividade Física":
-                        avaliacao.HabitosVida.AtivFisica = true;
-                        break;
-                    case @"Já praticou Pilates/LPF":
-                        avaliacao.HabitosVida.Pilates = true;
-                        break;
-                    default:
-                        break;
+        private void PreencheObjeto(CheckedListBox checklist, object obj, Dictionary<string, Action> mapeamento)
+        {
+            foreach (string itemSelecionado in checklist.CheckedItems)
+            {
+                if (mapeamento.ContainsKey(itemSelecionado))
+                {
+                    mapeamento[itemSelecionado].Invoke();
                 }
             }
+        }
+
+        private void PreencheHabitosVida()
+        {
+            Dictionary<string, Action> mapeamento = new Dictionary<string, Action>
+    {
+        { "Tabagismo", () => avaliacao.HabitosVida.Tabagismo = true },
+        { "Etilismo", () => avaliacao.HabitosVida.Etilismo = true },
+        { "Ingere Bastante Água", () => avaliacao.HabitosVida.IngereAgua = true },
+        { "Toma Medicamento", () => avaliacao.HabitosVida.Medicacao = true },
+        { "Intestino Funciona Bem", () => avaliacao.HabitosVida.Intestino = true },
+        { "Pratica Atividade Física", () => avaliacao.HabitosVida.AtivFisica = true },
+        { @"Já praticou Pilates/LPF", () => avaliacao.HabitosVida.Pilates = true }
+    };
+
+            PreencheObjeto(Cck_AntPessoais, avaliacao.HabitosVida, mapeamento);
+        }
+
+        private void PreencheExameFisico()
+        {
+            Dictionary<string, Action> mapeamento = new Dictionary<string, Action>
+    {
+        { "Apresenta Equilíbrio", () => avaliacao.ExameFisico.Equilibrio = true },
+        { "Frouxidão Ligamentar", () => avaliacao.ExameFisico.FroxidaoLigamentar = true },
+        { "Apresenta Estabilidade Escapular", () => avaliacao.ExameFisico.EstabilidadeEscapular = true },
+        { "Apresenta Mobilidade de Coluna", () => avaliacao.ExameFisico.MobilidadeColuna = true }
+    };
+
+            PreencheObjeto(cck_ExameFisico, avaliacao.ExameFisico, mapeamento);
         }
 
         private void PreencheDoencasRelacionadas()
         {
             Dictionary<string, Action> mapeamento = new Dictionary<string, Action>
-            {
-                { "Metabólicas", () => avaliacao.DoencasCondicoes.Metabolica = true },
-                { "Cardíacas", () => avaliacao.DoencasCondicoes.Cardiaca = true },
-                { "Respiratórias", () => avaliacao.DoencasCondicoes.Respiratorias = true },
-                { "Vasculares", () => avaliacao.DoencasCondicoes.Vasculares = true },
-                { "Neurológicas", () => avaliacao.DoencasCondicoes.Neurologicas = true },
-                { "Endócrinas", () => avaliacao.DoencasCondicoes.Endocrina = true },
-                { "Dermatológicas", () => avaliacao.DoencasCondicoes.Dermatologica = true },
-                { "Gastrointestinal", () => avaliacao.DoencasCondicoes.GastroIntestinal = true },
-                { "Visuais", () => avaliacao.DoencasCondicoes.Visual = true },
-                { "Covid-19", () => avaliacao.DoencasCondicoes.Covid = true },
-                { "Diabetes", () => avaliacao.DoencasCondicoes.Diabete = true },
-                { "Hipertensão", () => avaliacao.DoencasCondicoes.Hipertensao = true },
-                { "Cardiopatia", () => avaliacao.DoencasCondicoes.Cardiopatia = true },
-                { "Neoplasias", () => avaliacao.DoencasCondicoes.Neoplasias = true },
-                { "Doenças Hereditárias", () => avaliacao.DoencasCondicoes.DoencasHereditarias = true },
-                { "Gestação", () => avaliacao.DoencasCondicoes.Gestacao = true },
-                { "Cirurgias", () => avaliacao.DoencasCondicoes.Cirurgias= true }
-            };
+    {
+        { "Metabólicas", () => avaliacao.DoencasCondicoes.Metabolica = true },
+        { "Cardíacas", () => avaliacao.DoencasCondicoes.Cardiaca = true },
+        { "Respiratórias", () => avaliacao.DoencasCondicoes.Respiratorias = true },
+        { "Vasculares", () => avaliacao.DoencasCondicoes.Vasculares = true },
+        { "Neurológicas", () => avaliacao.DoencasCondicoes.Neurologicas = true },
+        { "Endócrinas", () => avaliacao.DoencasCondicoes.Endocrina = true },
+        { "Dermatológicas", () => avaliacao.DoencasCondicoes.Dermatologica = true },
+        { "Gastrointestinal", () => avaliacao.DoencasCondicoes.GastroIntestinal = true },
+        { "Visuais", () => avaliacao.DoencasCondicoes.Visual = true },
+        { "Covid-19", () => avaliacao.DoencasCondicoes.Covid = true },
+        { "Diabetes", () => avaliacao.DoencasCondicoes.Diabete = true },
+        { "Hipertensão", () => avaliacao.DoencasCondicoes.Hipertensao = true },
+        { "Cardiopatia", () => avaliacao.DoencasCondicoes.Cardiopatia = true },
+        { "Neoplasias", () => avaliacao.DoencasCondicoes.Neoplasias = true },
+        { "Doenças Hereditárias", () => avaliacao.DoencasCondicoes.DoencasHereditarias = true },
+        { "Gestação", () => avaliacao.DoencasCondicoes.Gestacao = true },
+        { "Cirurgias", () => avaliacao.DoencasCondicoes.Cirurgias = true }
+    };
 
-            foreach (string itemSelecionado in Cck_DoenAssociadas.CheckedItems)
-            {
-                if (mapeamento.ContainsKey(itemSelecionado))
-                {
-                    mapeamento[itemSelecionado].Invoke();
-                }
-            }
-
+            PreencheObjeto(Cck_DoenAssociadas, avaliacao.DoencasCondicoes, mapeamento);
         }
 
-        private void PreencheCabeca()
+        private void PreencheObjetoCabeca()
         {
             Dictionary<string, Action> mapeamento = new Dictionary<string, Action>
             {
                 { "Normal", () => avaliacao.ExameFisico.Cabeca.IsNormal = true },
-                { "Inclinada D", () => avaliacao.ExameFisico.Cabeca.IsInclinadaDireita  = true },
+                { "Inclinada D", () => avaliacao.ExameFisico.Cabeca.IsInclinadaDireita = true },
                 { "Inclinada E", () => avaliacao.ExameFisico.Cabeca.IsInclinadaEsquerda = true }
             };
 
-            foreach (string itemSelecionado in cck_Cabeca.CheckedItems)
-            {
-                if (mapeamento.ContainsKey(itemSelecionado))
-                {
-                    mapeamento[itemSelecionado].Invoke();
-                }
-            }
-
+            PreencheObjeto(cck_Cabeca, avaliacao.ExameFisico.Cabeca, mapeamento);
         }
 
-        private void CabecaParaTela()
-        {
-            Cck_DoenAssociadas.ClearSelected();
-
-            // Dicionário para mapear propriedades da classe avaliacao aos itens correspondentes
-            Dictionary<string, string> mapeamento = new Dictionary<string, string>
-            {
-                { "IsNormal", "Normal" },
-                { "IsInclinadaDireita", "Inclinada D" },
-                { "IsInclinadaEsquerda", "Inclinada E" }
-            };
-
-            if (avaliacao != null)
-
-                // Percorre as propriedades de avaliacao
-                foreach (var prop in avaliacao.ExameFisico.Cabeca.GetType().GetProperties())
-                {
-                    // Verifica se a propriedade está mapeada
-                    if (mapeamento.ContainsKey(prop.Name))
-                    {
-                        // Obtém o nome do item correspondente
-                        string nomeItem = mapeamento[prop.Name];
-
-                        // Obtém o valor da propriedade
-                        bool valor = (bool)prop.GetValue(avaliacao.ExameFisico.Cabeca);
-
-                        // Se o valor for verdadeiro, marca o checkbox correspondente
-                        if (valor)
-                        {
-                            int indice = Cck_DoenAssociadas.Items.IndexOf(nomeItem);
-                            if (indice != -1)
-                            {
-                                Cck_DoenAssociadas.SetItemChecked(indice, true);
-                            }
-                        }
-                    }
-                }
-        }
-
-        private void PreencheCervical()
+        private void PreencheObjetoCervical()
         {
             Dictionary<string, Action> mapeamento = new Dictionary<string, Action>
             {
@@ -230,17 +196,10 @@ namespace FisioMetric.Views
                 { "Retificada", () => avaliacao.ExameFisico.Cervical.IsRetificada = true }
             };
 
-            foreach (string itemSelecionado in cck_Cervical.CheckedItems)
-            {
-                if (mapeamento.ContainsKey(itemSelecionado))
-                {
-                    mapeamento[itemSelecionado].Invoke();
-                }
-            }
-
+            PreencheObjeto(cck_Cervical, avaliacao.ExameFisico.Cervical, mapeamento);
         }
 
-        private void PreencheOmbros()
+        private void PreencheObjetoOmbros()
         {
             Dictionary<string, Action> mapeamento = new Dictionary<string, Action>
             {
@@ -251,37 +210,23 @@ namespace FisioMetric.Views
                 { "Elevado E", () => avaliacao.ExameFisico.Ombros.IsElevadoEsquerdo = true }
             };
 
-            foreach (string itemSelecionado in cck_Ombros.CheckedItems)
-            {
-                if (mapeamento.ContainsKey(itemSelecionado))
-                {
-                    mapeamento[itemSelecionado].Invoke();
-                }
-            }
-
+            PreencheObjeto(cck_Ombros, avaliacao.ExameFisico.Ombros, mapeamento);
         }
 
-        private void PreencheColuna()
+        private void PreencheObjetoColuna()
         {
             Dictionary<string, Action> mapeamento = new Dictionary<string, Action>
-            {
-                { "Normal", () => avaliacao.ExameFisico.Cabeca.IsNormal = true },
-                { "Hipercifose", () => avaliacao.ExameFisico.Coluna.IsHipercifose = true },
-                { "Hiperlordose", () => avaliacao.ExameFisico.Coluna.IsHiperlordose = true },
-                { "Escoliose", () => avaliacao.ExameFisico.Coluna.IsEscoliose = true }
-            };
+    {
+        { "Normal", () => avaliacao.ExameFisico.Coluna.IsNormal = true },
+        { "Hipercifose", () => avaliacao.ExameFisico.Coluna.IsHipercifose = true },
+        { "Hiperlordose", () => avaliacao.ExameFisico.Coluna.IsHiperlordose = true },
+        { "Escoliose", () => avaliacao.ExameFisico.Coluna.IsEscoliose = true }
+    };
 
-            foreach (string itemSelecionado in cck_Coluna.CheckedItems)
-            {
-                if (mapeamento.ContainsKey(itemSelecionado))
-                {
-                    mapeamento[itemSelecionado].Invoke();
-                }
-            }
-
+            PreencheObjeto(cck_Coluna, avaliacao.ExameFisico.Coluna, mapeamento);
         }
 
-        private void PreenchePelve()
+        private void PreencheObjetoPelve()
         {
             Dictionary<string, Action> mapeamento = new Dictionary<string, Action>
             {
@@ -289,60 +234,67 @@ namespace FisioMetric.Views
                 { "Retroversão", () => avaliacao.ExameFisico.Pelve.IsRetroversao = true },
                 { "Anteversão", () => avaliacao.ExameFisico.Pelve.IsAnteversao = true },
                 { "Elevado D", () => avaliacao.ExameFisico.Pelve.IsElevadoDireita = true },
+                { "Escoliose", () => avaliacao.ExameFisico.Pelve.IsEscoliose = true },
                 { "Elevado E", () => avaliacao.ExameFisico.Pelve.IsElevadoEsquerda = true }
             };
 
-            foreach (string itemSelecionado in cck_Pelve.CheckedItems)
-            {
-                if (mapeamento.ContainsKey(itemSelecionado))
-                {
-                    mapeamento[itemSelecionado].Invoke();
-                }
-            }
-
+            PreencheObjeto(cck_Pelve, avaliacao.ExameFisico.Pelve, mapeamento);
         }
 
-        private void PreencheJoelhos()
+        private void PreencheObjetoJoelhos()
         {
             Dictionary<string, Action> mapeamento = new Dictionary<string, Action>
             {
                 { "Normal", () => avaliacao.ExameFisico.Joelhos.IsNormal = true },
-                { "Joelhos Valgo", () => avaliacao.ExameFisico.Joelhos.IsValgo = true },
-                { "Joelhos Varo", () => avaliacao.ExameFisico.Joelhos.IsVaro = true }
+                { "Joelho Valgo", () => avaliacao.ExameFisico.Joelhos.IsValgo = true },
+                { "Joelho Varo", () => avaliacao.ExameFisico.Joelhos.IsVaro = true }
             };
 
-            foreach (string itemSelecionado in cck_Joelhos.CheckedItems)
-            {
-                if (mapeamento.ContainsKey(itemSelecionado))
-                {
-                    mapeamento[itemSelecionado].Invoke();
-                }
-            }
-
+            PreencheObjeto(cck_Joelhos, avaliacao.ExameFisico.Joelhos, mapeamento);
         }
 
-        private void PreenchePes()
+        private void PreencheObjetoPes()
         {
             Dictionary<string, Action> mapeamento = new Dictionary<string, Action>
             {
                 { "Normal", () => avaliacao.ExameFisico.Pes.IsNormal = true },
-                { "Pés Valgo", () => avaliacao.ExameFisico.Pes.IsValgo = true },
-                { "Pés Varo", () => avaliacao.ExameFisico.Pes.IsVaro = true }
+                { "Pé Valgo", () => avaliacao.ExameFisico.Pes.IsValgo = true },
+                { "Pé Varo", () => avaliacao.ExameFisico.Pes.IsVaro = true }
             };
 
-            foreach (string itemSelecionado in cck_Pes.CheckedItems)
-            {
-                if (mapeamento.ContainsKey(itemSelecionado))
-                {
-                    mapeamento[itemSelecionado].Invoke();
-                }
-            }
-
+            PreencheObjeto(cck_Pes, avaliacao.ExameFisico.Pes, mapeamento);
         }
 
-        private void Btn_Cancel_Click(object sender, EventArgs e)
+        private void PreencheComponente(CheckedListBox checklist, object obj, Dictionary<string, string> mapeamento)
         {
-            this.Close();
+            checklist.ClearSelected();
+
+            if (avaliacao != null)
+            {
+                // Percorre as propriedades de avaliacao
+                foreach (var prop in obj.GetType().GetProperties())
+                {
+                    // Verifica se a propriedade está mapeada
+                    if (mapeamento.ContainsKey(prop.Name))
+                    {
+                        // Obtém o nome do item correspondente
+                        string nomeItem = mapeamento[prop.Name];
+
+                        // Obtém o valor da propriedade
+                        bool valor = (bool)prop.GetValue(obj);
+
+                        // Se o valor for verdadeiro, marca o checkbox correspondente
+                        if (valor)
+                        {
+                            int indice = checklist.Items.IndexOf(nomeItem);
+                            if (indice != -1)
+                            {
+                                checklist.SetItemChecked(indice, true);
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         private void SetReadOnlyControls(Control.ControlCollection controls)
@@ -380,8 +332,11 @@ namespace FisioMetric.Views
             Txt_Queixa.Text = avaliacao.QueixaPrincipal;
             Txt_TratamentoAnterior.Text = avaliacao.TratamentoAnterior;
 
-            PreencheHabitosPessoais();
-            PreencheComponenteDoencasRelacionadas();
+            PreencheCheckLists();
+
+            avaliacao.ExameFisico.PadraoMovimento.IsMaleavel = cck_PadMovimento.GetItemChecked(cck_PadMovimento.Items.IndexOf("HiperMobilidade"));
+            avaliacao.ExameFisico.PadraoMovimento.IsRigido = cck_PadMovimento.GetItemChecked(cck_PadMovimento.Items.IndexOf("Rígido"));
+
 
 
             Txt_ObsDoenças.Text = avaliacao.ObservacaoDoenca;
@@ -392,48 +347,52 @@ namespace FisioMetric.Views
 
         }
 
-        private void PreencheHabitosPessoais()
+        private void PreencheCheckLists()
         {
-            // Limpa as seleções existentes para evitar duplicatas
-            Cck_AntPessoais.ClearSelected();
+            PreencheComponentesHabitosPessoais();
+            PreencheComponenteDoencasRelacionadas();
+            PreencheComponenteExameFisico();
+            CabecaParaTela();
+            CervicalParaTela();
+            ColunaParaTela();
+            OmbrosParaTela();
+            PelveParaTela();
+            JoelhosParaTela();
+            PesParaTela();
+            PadraoMovimentoParaTela();
+        }
 
-            // Percorre as propriedades do objeto avaliacao e marca os CheckBoxes correspondentes
-            if (avaliacao.HabitosVida.Tabagismo)
-            {
-                Cck_AntPessoais.SetItemChecked(Cck_AntPessoais.Items.IndexOf("Tabagismo"), true);
-            }
-            if (avaliacao.HabitosVida.Etilismo)
-            {
-                Cck_AntPessoais.SetItemChecked(Cck_AntPessoais.Items.IndexOf("Etilismo"), true);
-            }
-            if (avaliacao.HabitosVida.IngereAgua)
-            {
-                Cck_AntPessoais.SetItemChecked(Cck_AntPessoais.Items.IndexOf("Ingere Bastante Água"), true);
-            }
-            if (avaliacao.HabitosVida.Medicacao)
-            {
-                Cck_AntPessoais.SetItemChecked(Cck_AntPessoais.Items.IndexOf("Toma Medicamento"), true);
-            }
-            if (avaliacao.HabitosVida.Intestino)
-            {
-                Cck_AntPessoais.SetItemChecked(Cck_AntPessoais.Items.IndexOf("Intestino Funciona Bem"), true);
-            }
-            if (avaliacao.HabitosVida.AtivFisica)
-            {
-                Cck_AntPessoais.SetItemChecked(Cck_AntPessoais.Items.IndexOf("Pratica Atividade Física"), true);
-            }
-            if (avaliacao.HabitosVida.Pilates)
-            {
-                Cck_AntPessoais.SetItemChecked(Cck_AntPessoais.Items.IndexOf(@"Já praticou Pilates/LPF"), true);
-            }
+        private void PreencheComponenteExameFisico()
+        {
+            Dictionary<string, string> mapeamento = new Dictionary<string, string>
+    {
+        { "Equilibrio", "Apresenta Equilíbrio" },
+        { "FroxidaoLigamentar", "Frouxidão Ligamentar" },
+        { "EstabilidadeEscapular", "Apresenta Estabilidade Escapular" },
+        { "MobilidadeColuna", "Apresenta Mobilidade de Coluna" }
+    };
+
+            PreencheComponente(cck_ExameFisico, avaliacao.ExameFisico, mapeamento);
+        }
+
+        private void PreencheComponentesHabitosPessoais()
+        {
+            Dictionary<string, string> mapeamento = new Dictionary<string, string>
+    {
+        { "Tabagismo", "Tabagismo" },
+        { "Etilismo", "Etilismo" },
+        { "IngereAgua", "Ingere Bastante Água" },
+        { "Medicacao", "Toma Medicamento" },
+        { "Intestino", "Intestino Funciona Bem" },
+        { "AtivFisica", "Pratica Atividade Física" },
+        { "Pilates", @"Já praticou Pilates/LPF" }
+    };
+
+            PreencheComponente(Cck_AntPessoais, avaliacao.HabitosVida, mapeamento);
         }
 
         private void PreencheComponenteDoencasRelacionadas()
         {
-            // Limpa as seleções existentes para evitar duplicatas
-            Cck_DoenAssociadas.ClearSelected();
-
-            // Dicionário para mapear propriedades da classe avaliacao aos itens correspondentes
             Dictionary<string, string> mapeamento = new Dictionary<string, string>
             {
                 { "Metabolica", "Metabólicas" },
@@ -446,7 +405,7 @@ namespace FisioMetric.Views
                 { "GastroIntestinal", "Gastrointestinal" },
                 { "Visual", "Visuais" },
                 { "Covid", "Covid-19" },
-                { "Diabetes", "Diabetes"},
+                { "Diabete", "Diabetes"},
                 { "Hipertensao", "Hipertensão" },
                 { "Cardiopatia" , "Cardiopatia" },
                 { "Neoplasias" , "Neoplasias" },
@@ -455,36 +414,125 @@ namespace FisioMetric.Views
                 { "Cirurgias" , "Cirurgias" }
             };
 
-            if (avaliacao != null)
-
-                // Percorre as propriedades de avaliacao
-                foreach (var prop in avaliacao.DoencasCondicoes.GetType().GetProperties())
-                {
-                    // Verifica se a propriedade está mapeada
-                    if (mapeamento.ContainsKey(prop.Name))
-                    {
-                        // Obtém o nome do item correspondente
-                        string nomeItem = mapeamento[prop.Name];
-
-                        // Obtém o valor da propriedade
-                        bool valor = (bool)prop.GetValue(avaliacao.DoencasCondicoes);
-
-                        // Se o valor for verdadeiro, marca o checkbox correspondente
-                        if (valor)
-                        {
-                            int indice = Cck_DoenAssociadas.Items.IndexOf(nomeItem);
-                            if (indice != -1)
-                            {
-                                Cck_DoenAssociadas.SetItemChecked(indice, true);
-                            }
-                        }
-                    }
-                }
+            PreencheComponente(Cck_DoenAssociadas, avaliacao.DoencasCondicoes, mapeamento);
         }
+
+        private void CabecaParaTela()
+        {
+            Dictionary<string, string> mapeamento = new Dictionary<string, string>
+    {
+        { "IsNormal", "Normal" },
+        { "IsInclinadaDireita", "Inclinada D" },
+        { "IsInclinadaEsquerda", "Inclinada E" }
+    };
+
+            PreencheComponente(cck_Cabeca, avaliacao.ExameFisico.Cabeca, mapeamento);
+        }
+
+        private void CervicalParaTela()
+        {
+            Dictionary<string, string> mapeamento = new Dictionary<string, string>
+    {
+        { "IsNormal", "Normal" },
+        { "IsAnteriorizada", "Anteriorizada" },
+        { "IsRetificada", "Retificada" }
+    };
+
+            PreencheComponente(cck_Cervical, avaliacao.ExameFisico.Cervical, mapeamento);
+        }
+
+        private void OmbrosParaTela()
+        {
+            Dictionary<string, string> mapeamento = new Dictionary<string, string>
+            {
+                { "IsNormal", "Normal" },
+                { "IsElevadoDireito", "Elevado D" },
+                { "IsElevadoEsquerdo", "Elevado E" },
+                { "IsAnteriorizado", "Anteriorizado" },
+                { "IsEscapulaAlada", "Escápula Alada" }
+            };
+
+            PreencheComponente(cck_Ombros, avaliacao.ExameFisico.Ombros, mapeamento);
+        }
+
+        private void ColunaParaTela()
+        {
+            Dictionary<string, string> mapeamento = new Dictionary<string, string>
+    {
+        { "IsNormal", "Normal" },
+        { "IsHipercifose", "Hipercifose" },
+        { "IsHiperlordose", "Hiperlordose" },
+        { "IsEscoliose", "Escoliose" }
+    };
+
+            PreencheComponente(cck_Coluna, avaliacao.ExameFisico.Coluna, mapeamento);
+        }
+
+        private void PelveParaTela()
+        {
+            Dictionary<string, string> mapeamento = new Dictionary<string, string>
+            {
+                { "IsNormal", "Normal" },
+                { "IsElevadoDireita", "Elevado D" },
+                { "IsElevadoEsquerda", "Elevado E" },
+                { "IsAnteversao", "Anteversão" },
+                { "IsRetroversao", "Retroversão" },
+                { "IsEscoliose", "Escoliose" },
+            };
+
+            PreencheComponente(cck_Pelve, avaliacao.ExameFisico.Pelve, mapeamento);
+        }
+
+        private void JoelhosParaTela()
+        {
+            Dictionary<string, string> mapeamento = new Dictionary<string, string>
+    {
+        { "IsNormal", "Normal" },
+        { "IsValgo", "Joelho Valgo" },
+        { "IsVaro", "Joelho Varo" }
+    };
+
+            PreencheComponente(cck_Joelhos, avaliacao.ExameFisico.Joelhos, mapeamento);
+        }
+
+        private void PesParaTela()
+        {
+            Dictionary<string, string> mapeamento = new Dictionary<string, string>
+            {
+                { "IsNormal", "Normal" },
+                { "IsValgo", "Pé Valgo" },
+                { "IsVaro", "Pé Varo" }
+            };
+
+            PreencheComponente(cck_Pes, avaliacao.ExameFisico.Pes, mapeamento);
+        }
+
+        private void PadraoMovimentoParaTela()
+        {
+            Dictionary<string, string> mapeamento = new Dictionary<string, string>
+            {
+                { "IsMaleavel", "HiperMobilidade" },
+                { "IsRigido", "Rígido" }
+            };
+
+            PreencheComponente(cck_PadMovimento, avaliacao.ExameFisico.PadraoMovimento, mapeamento);
+        }
+
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void cck_PadMovimento_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            for (int i = 0; i < cck_PadMovimento.Items.Count; i++)
+            {
+                if (i != e.Index)
+                {
+                    cck_PadMovimento.SetItemChecked(i, false);
+                }
+            }
         }
     }
 }

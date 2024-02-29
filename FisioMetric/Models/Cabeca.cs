@@ -2,8 +2,8 @@
 {
     public class Cabeca
     {
-        public bool IsNormal { get; set; } = true;
-        public bool IsInclinadaEsquerda { get; set; } = true;
-        public bool IsInclinadaDireita { get; set; } = true;
+        public bool IsNormal { get; set; } = false;
+        public bool IsInclinadaEsquerda { get; set; } = false;
+        public bool IsInclinadaDireita { get; set; } = false;
     }
 }

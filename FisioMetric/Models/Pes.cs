@@ -2,8 +2,8 @@
 {
     public class Pes
     {
-        public bool IsNormal { get; set; } = true;
-        public bool IsValgo { get; set; } = true;
-        public bool IsVaro { get; set; } = true;
+        public bool IsNormal { get; set; } = false;
+        public bool IsValgo { get; set; } = false;
+        public bool IsVaro { get; set; } = false;
     }
 }

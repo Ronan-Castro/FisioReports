@@ -2,13 +2,13 @@
 {
     public class HabitosVida
     {
-        public bool Tabagismo { get; set; } = true;
-        public bool Etilismo { get; set; } = true;
-        public bool IngereAgua { get; set; } = true;
-        public bool Medicacao { get; set; } = true;
-        public bool Intestino { get; set; } = true;
-        public bool AtivFisica { get; set; } = true;
-        public bool Pilates { get; set; } = true;
+        public bool Tabagismo { get; set; } = false;
+        public bool Etilismo { get; set; } = false;
+        public bool IngereAgua { get; set; } = false;
+        public bool Medicacao { get; set; } = false;
+        public bool Intestino { get; set; } = false;
+        public bool AtivFisica { get; set; } = false;
+        public bool Pilates { get; set; } = false;
         public string? ObsHabitos { get; set; }
     }
 }

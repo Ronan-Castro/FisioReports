@@ -30,6 +30,12 @@
         {
             components = new System.ComponentModel.Container();
             panel1 = new Panel();
+            label18 = new Label();
+            cck_PadMovimento = new CheckedListBox();
+            label17 = new Label();
+            cck_ExameFisico = new CheckedListBox();
+            label15 = new Label();
+            cck_Cabeca = new CheckedListBox();
             label14 = new Label();
             cck_Pes = new CheckedListBox();
             label13 = new Label();
@@ -41,7 +47,7 @@
             label7 = new Label();
             cck_Ombros = new CheckedListBox();
             label3 = new Label();
-            cck_Cabeca = new CheckedListBox();
+            cck_Cervical = new CheckedListBox();
             Txt_ObjPessoal = new TextBox();
             label5 = new Label();
             Txt_ObjTerapeutico = new TextBox();
@@ -67,14 +73,18 @@
             Txt_DiagClin = new TextBox();
             Txt_DiagFisio = new TextBox();
             Lbl_DiagClin = new Label();
-            cck_Cervical = new CheckedListBox();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
             // 
             panel1.AutoScroll = true;
-            panel1.Controls.Add(cck_Cervical);
+            panel1.Controls.Add(label18);
+            panel1.Controls.Add(cck_PadMovimento);
+            panel1.Controls.Add(label17);
+            panel1.Controls.Add(cck_ExameFisico);
+            panel1.Controls.Add(label15);
+            panel1.Controls.Add(cck_Cabeca);
             panel1.Controls.Add(label14);
             panel1.Controls.Add(cck_Pes);
             panel1.Controls.Add(label13);
@@ -86,7 +96,7 @@
             panel1.Controls.Add(label7);
             panel1.Controls.Add(cck_Ombros);
             panel1.Controls.Add(label3);
-            panel1.Controls.Add(cck_Cabeca);
+            panel1.Controls.Add(cck_Cervical);
             panel1.Controls.Add(Txt_ObjPessoal);
             panel1.Controls.Add(label5);
             panel1.Controls.Add(Txt_ObjTerapeutico);
@@ -119,11 +129,87 @@
             panel1.TabIndex = 19;
             panel1.Paint += panel1_Paint;
             // 
+            // label18
+            // 
+            label18.AutoSize = true;
+            label18.Font = new Font("Segoe UI", 12F);
+            label18.Location = new Point(11, 1378);
+            label18.Margin = new Padding(4, 0, 4, 0);
+            label18.Name = "label18";
+            label18.Size = new Size(163, 21);
+            label18.TabIndex = 64;
+            label18.Text = "Padrão de Movimento";
+            // 
+            // cck_PadMovimento
+            // 
+            cck_PadMovimento.CheckOnClick = true;
+            cck_PadMovimento.ColumnWidth = 250;
+            cck_PadMovimento.Font = new Font("Segoe UI", 12F);
+            cck_PadMovimento.FormattingEnabled = true;
+            cck_PadMovimento.Items.AddRange(new object[] { "HiperMobilidade", "Rígido" });
+            cck_PadMovimento.Location = new Point(182, 1371);
+            cck_PadMovimento.Margin = new Padding(4, 3, 4, 3);
+            cck_PadMovimento.MultiColumn = true;
+            cck_PadMovimento.Name = "cck_PadMovimento";
+            cck_PadMovimento.Size = new Size(636, 28);
+            cck_PadMovimento.TabIndex = 63;
+            cck_PadMovimento.ItemCheck += cck_PadMovimento_ItemCheck;
+            // 
+            // label17
+            // 
+            label17.AutoSize = true;
+            label17.Font = new Font("Segoe UI", 12F);
+            label17.Location = new Point(71, 1332);
+            label17.Margin = new Padding(4, 0, 4, 0);
+            label17.Name = "label17";
+            label17.Size = new Size(96, 21);
+            label17.TabIndex = 62;
+            label17.Text = "Exame Geral";
+            // 
+            // cck_ExameFisico
+            // 
+            cck_ExameFisico.CheckOnClick = true;
+            cck_ExameFisico.ColumnWidth = 250;
+            cck_ExameFisico.Font = new Font("Segoe UI", 12F);
+            cck_ExameFisico.FormattingEnabled = true;
+            cck_ExameFisico.Items.AddRange(new object[] { "Apresenta Equilíbrio", "Frouxidão Ligamentar", "Apresenta Estabilidade Escapular", "Apresenta Mobilidade de Coluna" });
+            cck_ExameFisico.Location = new Point(182, 1301);
+            cck_ExameFisico.Margin = new Padding(4, 3, 4, 3);
+            cck_ExameFisico.MultiColumn = true;
+            cck_ExameFisico.Name = "cck_ExameFisico";
+            cck_ExameFisico.Size = new Size(636, 52);
+            cck_ExameFisico.TabIndex = 61;
+            // 
+            // label15
+            // 
+            label15.AutoSize = true;
+            label15.Font = new Font("Segoe UI", 12F);
+            label15.Location = new Point(106, 1470);
+            label15.Margin = new Padding(4, 0, 4, 0);
+            label15.Name = "label15";
+            label15.Size = new Size(68, 21);
+            label15.TabIndex = 60;
+            label15.Text = "Cervical:";
+            // 
+            // cck_Cabeca
+            // 
+            cck_Cabeca.CheckOnClick = true;
+            cck_Cabeca.ColumnWidth = 180;
+            cck_Cabeca.Font = new Font("Segoe UI", 12F);
+            cck_Cabeca.FormattingEnabled = true;
+            cck_Cabeca.Items.AddRange(new object[] { "Normal", "Inclinada D", "Inclinada E" });
+            cck_Cabeca.Location = new Point(182, 1416);
+            cck_Cabeca.Margin = new Padding(4, 3, 4, 3);
+            cck_Cabeca.MultiColumn = true;
+            cck_Cabeca.Name = "cck_Cabeca";
+            cck_Cabeca.Size = new Size(636, 28);
+            cck_Cabeca.TabIndex = 59;
+            // 
             // label14
             // 
             label14.AutoSize = true;
             label14.Font = new Font("Segoe UI", 12F);
-            label14.Location = new Point(108, 1627);
+            label14.Location = new Point(138, 1754);
             label14.Margin = new Padding(4, 0, 4, 0);
             label14.Name = "label14";
             label14.Size = new Size(36, 21);
@@ -136,19 +222,19 @@
             cck_Pes.ColumnWidth = 180;
             cck_Pes.Font = new Font("Segoe UI", 12F);
             cck_Pes.FormattingEnabled = true;
-            cck_Pes.Items.AddRange(new object[] { "Normal", "Joelho Valgo", "Joelho Varo" });
-            cck_Pes.Location = new Point(152, 1621);
+            cck_Pes.Items.AddRange(new object[] { "Normal", "Pé Valgo", "Pé Varo" });
+            cck_Pes.Location = new Point(182, 1748);
             cck_Pes.Margin = new Padding(4, 3, 4, 3);
             cck_Pes.MultiColumn = true;
             cck_Pes.Name = "cck_Pes";
-            cck_Pes.Size = new Size(666, 28);
+            cck_Pes.Size = new Size(636, 28);
             cck_Pes.TabIndex = 57;
             // 
             // label13
             // 
             label13.AutoSize = true;
             label13.Font = new Font("Segoe UI", 12F);
-            label13.Location = new Point(79, 1583);
+            label13.Location = new Point(109, 1710);
             label13.Margin = new Padding(4, 0, 4, 0);
             label13.Name = "label13";
             label13.Size = new Size(65, 21);
@@ -162,18 +248,18 @@
             cck_Joelhos.Font = new Font("Segoe UI", 12F);
             cck_Joelhos.FormattingEnabled = true;
             cck_Joelhos.Items.AddRange(new object[] { "Normal", "Joelho Valgo", "Joelho Varo" });
-            cck_Joelhos.Location = new Point(152, 1576);
+            cck_Joelhos.Location = new Point(182, 1703);
             cck_Joelhos.Margin = new Padding(4, 3, 4, 3);
             cck_Joelhos.MultiColumn = true;
             cck_Joelhos.Name = "cck_Joelhos";
-            cck_Joelhos.Size = new Size(666, 28);
+            cck_Joelhos.Size = new Size(636, 28);
             cck_Joelhos.TabIndex = 55;
             // 
             // label12
             // 
             label12.AutoSize = true;
             label12.Font = new Font("Segoe UI", 12F);
-            label12.Location = new Point(95, 1540);
+            label12.Location = new Point(125, 1667);
             label12.Margin = new Padding(4, 0, 4, 0);
             label12.Name = "label12";
             label12.Size = new Size(49, 21);
@@ -186,19 +272,19 @@
             cck_Pelve.ColumnWidth = 180;
             cck_Pelve.Font = new Font("Segoe UI", 12F);
             cck_Pelve.FormattingEnabled = true;
-            cck_Pelve.Items.AddRange(new object[] { "Normal", "Anteversão", "Retroversão", "Elevado D/E" });
-            cck_Pelve.Location = new Point(152, 1444);
+            cck_Pelve.Items.AddRange(new object[] { "Normal", "Anteversão", "Elevado E", "Retroversão", "Elevado D", "Escoliose" });
+            cck_Pelve.Location = new Point(182, 1636);
             cck_Pelve.Margin = new Padding(4, 3, 4, 3);
             cck_Pelve.MultiColumn = true;
             cck_Pelve.Name = "cck_Pelve";
-            cck_Pelve.Size = new Size(666, 52);
+            cck_Pelve.Size = new Size(636, 52);
             cck_Pelve.TabIndex = 53;
             // 
             // label11
             // 
             label11.AutoSize = true;
             label11.Font = new Font("Segoe UI", 12F);
-            label11.Location = new Point(82, 1475);
+            label11.Location = new Point(112, 1602);
             label11.Margin = new Padding(4, 0, 4, 0);
             label11.Name = "label11";
             label11.Size = new Size(62, 21);
@@ -213,18 +299,18 @@
             cck_Coluna.Font = new Font("Segoe UI", 12F);
             cck_Coluna.FormattingEnabled = true;
             cck_Coluna.Items.AddRange(new object[] { "Normal", "Escoliose", "Hipercifose", "Hiperlordose" });
-            cck_Coluna.Location = new Point(152, 1509);
+            cck_Coluna.Location = new Point(182, 1571);
             cck_Coluna.Margin = new Padding(4, 3, 4, 3);
             cck_Coluna.MultiColumn = true;
             cck_Coluna.Name = "cck_Coluna";
-            cck_Coluna.Size = new Size(666, 52);
+            cck_Coluna.Size = new Size(636, 52);
             cck_Coluna.TabIndex = 51;
             // 
             // label7
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 12F);
-            label7.Location = new Point(74, 1411);
+            label7.Location = new Point(104, 1538);
             label7.Margin = new Padding(4, 0, 4, 0);
             label7.Name = "label7";
             label7.Size = new Size(70, 21);
@@ -237,38 +323,38 @@
             cck_Ombros.ColumnWidth = 180;
             cck_Ombros.Font = new Font("Segoe UI", 12F);
             cck_Ombros.FormattingEnabled = true;
-            cck_Ombros.Items.AddRange(new object[] { "Normal", "Anteriorizado", "Elevado D/E", "Escapula Alada" });
-            cck_Ombros.Location = new Point(152, 1380);
+            cck_Ombros.Items.AddRange(new object[] { "Normal", "Anteriorizado", "Elevado D", "Escápula Alada", "Elevado E" });
+            cck_Ombros.Location = new Point(182, 1507);
             cck_Ombros.Margin = new Padding(4, 3, 4, 3);
             cck_Ombros.MultiColumn = true;
             cck_Ombros.Name = "cck_Ombros";
-            cck_Ombros.Size = new Size(666, 52);
+            cck_Ombros.Size = new Size(636, 52);
             cck_Ombros.TabIndex = 49;
             // 
             // label3
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 12F);
-            label3.Location = new Point(15, 1343);
+            label3.Location = new Point(111, 1423);
             label3.Margin = new Padding(4, 0, 4, 0);
             label3.Name = "label3";
-            label3.Size = new Size(132, 21);
+            label3.Size = new Size(63, 21);
             label3.TabIndex = 48;
-            label3.Text = "Cabeça / Cervical:";
+            label3.Text = "Cabeça:";
             // 
-            // cck_Cabeca
+            // cck_Cervical
             // 
-            cck_Cabeca.CheckOnClick = true;
-            cck_Cabeca.ColumnWidth = 180;
-            cck_Cabeca.Font = new Font("Segoe UI", 12F);
-            cck_Cabeca.FormattingEnabled = true;
-            cck_Cabeca.Items.AddRange(new object[] { "Normal", "Anteriorizada", "Retificada", "Inclinada" });
-            cck_Cabeca.Location = new Point(152, 1312);
-            cck_Cabeca.Margin = new Padding(4, 3, 4, 3);
-            cck_Cabeca.MultiColumn = true;
-            cck_Cabeca.Name = "cck_Cabeca";
-            cck_Cabeca.Size = new Size(666, 52);
-            cck_Cabeca.TabIndex = 47;
+            cck_Cervical.CheckOnClick = true;
+            cck_Cervical.ColumnWidth = 180;
+            cck_Cervical.Font = new Font("Segoe UI", 12F);
+            cck_Cervical.FormattingEnabled = true;
+            cck_Cervical.Items.AddRange(new object[] { "Normal", "Anteriorizada", "Retificada" });
+            cck_Cervical.Location = new Point(182, 1463);
+            cck_Cervical.Margin = new Padding(4, 3, 4, 3);
+            cck_Cervical.MultiColumn = true;
+            cck_Cervical.Name = "cck_Cervical";
+            cck_Cervical.Size = new Size(636, 28);
+            cck_Cervical.TabIndex = 47;
             // 
             // Txt_ObjPessoal
             // 
@@ -472,7 +558,7 @@
             Cck_DoenAssociadas.Font = new Font("Segoe UI", 12F);
             Cck_DoenAssociadas.FormattingEnabled = true;
             Cck_DoenAssociadas.ImeMode = ImeMode.NoControl;
-            Cck_DoenAssociadas.Items.AddRange(new object[] { "Metabólicas", "Cardíacas ", "Respiratórias", "Vasculares", "Neurológicas", "Endócrinas", "Dermatológicas", "Gastrointestinal", "Visuais", "Covid-19", "Diabetes", "Hipertensão", "Cardiopatia", "Neoplasias", "Doenças Hereditárias", "Gestação", "Cirurgias" });
+            Cck_DoenAssociadas.Items.AddRange(new object[] { "Metabólicas", "Cardíacas", "Respiratórias", "Vasculares", "Neurológicas", "Endócrinas", "Dermatológicas", "Gastrointestinal", "Visuais", "Covid-19", "Diabetes", "Hipertensão", "Cardiopatia", "Neoplasias", "Doenças Hereditárias", "Gestação", "Cirurgias" });
             Cck_DoenAssociadas.Location = new Point(15, 452);
             Cck_DoenAssociadas.Margin = new Padding(4, 3, 4, 3);
             Cck_DoenAssociadas.MultiColumn = true;
@@ -563,20 +649,6 @@
             Lbl_DiagClin.TabIndex = 10;
             Lbl_DiagClin.Text = "Diagnóstico Clínico";
             // 
-            // cck_Cervical
-            // 
-            cck_Cervical.CheckOnClick = true;
-            cck_Cervical.ColumnWidth = 180;
-            cck_Cervical.Font = new Font("Segoe UI", 12F);
-            cck_Cervical.FormattingEnabled = true;
-            cck_Cervical.Items.AddRange(new object[] { "Normal", "Anteriorizada", "Retificada", "Inclinada" });
-            cck_Cervical.Location = new Point(152, 1254);
-            cck_Cervical.Margin = new Padding(4, 3, 4, 3);
-            cck_Cervical.MultiColumn = true;
-            cck_Cervical.Name = "cck_Cervical";
-            cck_Cervical.Size = new Size(666, 52);
-            cck_Cervical.TabIndex = 59;
-            // 
             // Frm_Avaliacao
             // 
             AcceptButton = Btn_Salvar;
@@ -636,7 +708,12 @@
         private Label label7;
         private CheckedListBox cck_Ombros;
         private Label label3;
-        private CheckedListBox cck_Cabeca;
         private CheckedListBox cck_Cervical;
+        private CheckedListBox cck_Cabeca;
+        private Label label15;
+        private CheckedListBox cck_ExameFisico;
+        private Label label17;
+        private Label label18;
+        private CheckedListBox cck_PadMovimento;
     }
 }
